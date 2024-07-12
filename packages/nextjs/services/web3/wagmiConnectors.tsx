@@ -21,7 +21,7 @@ const wallets = [
   rainbowWallet,
   safeWallet,
   ...(!targetNetworks.some(network => network.id !== (chains.hardhat as chains.Chain).id) || !onlyLocalBurnerWallet
-    ? [rainbowkitBurnerWallet]
+    ? [] // ? [rainbowkitBurnerWallet]
     : []),
 ];
 
@@ -37,7 +37,7 @@ export const wagmiConnectors = connectorsForWallets(
   ],
 
   {
-    appName: "scaffold-eth-2",
+    appName: "dragonwolf-app",
     projectId: scaffoldConfig.walletConnectProjectId,
   },
 );

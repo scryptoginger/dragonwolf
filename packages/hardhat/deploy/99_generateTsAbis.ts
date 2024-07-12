@@ -80,9 +80,12 @@ function getContractDataFromDeployments() {
     throw Error("At least one other deployment script should exist to generate an actual contract.");
   }
   const output = {} as Record<string, any>;
+  console.log({ output });
   for (const chainName of getDirectories(DEPLOYMENTS_DIR)) {
     const chainId = fs.readFileSync(`${DEPLOYMENTS_DIR}/${chainName}/.chainId`).toString();
+    console.log({ chainId });
     const contracts = {} as Record<string, any>;
+    console.log({ contracts });
     for (const contractName of getContractNames(`${DEPLOYMENTS_DIR}/${chainName}`)) {
       const { abi, address, metadata } = JSON.parse(
         fs.readFileSync(`${DEPLOYMENTS_DIR}/${chainName}/${contractName}.json`).toString(),

@@ -1,11 +1,16 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { hardhat } from "viem/chains";
-import { CurrencyDollarIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { CurrencyDollarIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { SwitchTheme } from "~~/components/SwitchTheme";
-import { BuidlGuidlLogo } from "~~/components/assets/BuidlGuidlLogo";
-import { Faucet } from "~~/components/scaffold-eth";
+import { GitHubLogo } from "~~/components/assets/GitHubLogo";
+import { HardhatLogo } from "~~/components/assets/HardhatLogo";
+import { LinkedInLogo } from "~~/components/assets/LinkedInLogo";
+import { ReactLogo } from "~~/components/assets/ReactLogo";
+import { ScaffoldEthLogo } from "~~/components/assets/ScaffoldEthLogo";
+import { SolidityLogo } from "~~/components/assets/SolidityLogo";
+import { TelegramLogo } from "~~/components/assets/TelegramLogo";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { useGlobalState } from "~~/services/store/store";
 
@@ -27,16 +32,17 @@ export const Footer = () => {
                 <div className="btn btn-primary btn-sm font-normal gap-1 cursor-auto">
                   <CurrencyDollarIcon className="h-4 w-4" />
                   <span>{nativeCurrencyPrice.toFixed(2)}</span>
+                  {/* <span>{nativeCurrencyPrice}</span> */}
                 </div>
               </div>
             )}
             {isLocalNetwork && (
               <>
-                <Faucet />
+                {/* <Faucet />
                 <Link href="/blockexplorer" passHref className="btn btn-primary btn-sm font-normal gap-1">
                   <MagnifyingGlassIcon className="h-4 w-4" />
                   <span>Block Explorer</span>
-                </Link>
+                </Link> */}
               </>
             )}
           </div>
@@ -47,29 +53,55 @@ export const Footer = () => {
         <ul className="menu menu-horizontal w-full">
           <div className="flex justify-center items-center gap-2 text-sm w-full">
             <div className="text-center">
-              <a href="https://github.com/scaffold-eth/se-2" target="_blank" rel="noreferrer" className="link">
-                Fork me
+              <a href="https://github.com/scryptoginger/dragonwolf" target="_blank" rel="noreferrer" className="link">
+                <GitHubLogo className="w-4 h-6" />
               </a>
             </div>
-            <span>·</span>
+            <span> · </span>
+            <div className="text-center">
+              <a href="#" target="_blank" rel="noreferrer" className="link">
+                Visit on OpenSea
+              </a>
+            </div>
+
+            {/* LOGO SECTION */}
+            <span> · </span>
             <div className="flex justify-center items-center gap-2">
               <p className="m-0 text-center">
-                Built with <HeartIcon className="inline-block h-4 w-4" /> at
+                Built with <HeartIcon className="inline-block h-4 w-4" /> using
               </p>
               <a
                 className="flex justify-center items-center gap-1"
-                href="https://buidlguidl.com/"
+                href="https://scaffoldeth.io/"
                 target="_blank"
                 rel="noreferrer"
               >
-                <BuidlGuidlLogo className="w-3 h-5 pb-1" />
-                <span className="link">BuidlGuidl</span>
+                <ScaffoldEthLogo className="w-4 h-6" />
               </a>
+              <ReactLogo className="w-4 h-6" />
+              <HardhatLogo className="w-4 h-6" />
+              <SolidityLogo className="w-4 h-6" />
             </div>
-            <span>·</span>
-            <div className="text-center">
-              <a href="https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA" target="_blank" rel="noreferrer" className="link">
-                Support
+
+            {/* CONTACT ME */}
+            <span> · </span>
+            <div className="flex justify-center items-center gap-2">
+              <p className="m-0 text-center">Contact Me:</p>
+              <a
+                className="flex justify-center items-center gap-1"
+                href="https://t.me/thecryptoginger"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <TelegramLogo className="w-4 h-6" />
+              </a>
+              <a
+                className="flex justify-center items-center gap-1"
+                href="https://www.linkedin.com/in/keithlutes/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <LinkedInLogo className="w-4 h-6" />
               </a>
             </div>
           </div>
@@ -78,3 +110,4 @@ export const Footer = () => {
     </div>
   );
 };
+// shout out to TROGDOR the BURNINATOR. https://en.wikifur.com/w/images/thumb/d/d3/Trogdor_Original_Design.png/708px-Trogdor_Original_Design.png

@@ -50,7 +50,7 @@ export const displayTxResult = (
     );
   }
 
-  return JSON.stringify(displayContent, replacer, 2);
+  return JSON.stringify(displayContent, replacer, 2).replaceAll(/"/g, "");
 };
 
 const displayTxResultAsText = (displayContent: DisplayContent) => displayTxResult(displayContent, true);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { InheritanceTooltip } from "./InheritanceTooltip";
 import { Abi, AbiFunction } from "abitype";
 import { Address } from "viem";
@@ -32,6 +33,7 @@ export const ReadOnlyFunctionForm = ({
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [result, setResult] = useState<unknown>();
   const { targetNetwork } = useTargetNetwork();
+  const [isBrave, setIsBrave] = useState<boolean>(false);
 
   const { isFetching, refetch, error } = useReadContract({
     address: contractAddress,
@@ -69,6 +71,31 @@ export const ReadOnlyFunctionForm = ({
     );
   });
 
+  const convertIpfsUrl = (url: string): string => {
+    return url.replace("ipfs://", "https://ipfs.io/ipfs/");
+  };
+
+  const isBraveBrowser = async (): Promise<boolean> => {
+    const isBrave = (navigator as any).brave && (await (navigator as any).brave.isBrave());
+    return isBrave;
+  };
+
+  //todo: change this to fetch the image hash from somewhere instead of using a magic string
+  const imgHash = "bafybeichdpu3ded2ccgfznlki6djbtjcly47ho5ftyhi4doimbdfxnp4xe";
+
+  useEffect(() => {
+    const checkBraveBrowser = async () => {
+      const brave = await isBraveBrowser();
+      setIsBrave(brave);
+    };
+    checkBraveBrowser();
+  }, []);
+
+  // const txResult = displayTxResult(result).toString();
+  // const convertedUrl = convertIpfsUrl(txResult);
+  // const txUrl = new URL(txResult);
+  // const convertedTxUrl = new URL(convertedUrl);
+
   return (
     <div className="flex flex-col gap-3 py-5 first:pt-0 last:pb-1">
       <p className="font-medium my-0 break-words">
@@ -81,7 +108,34 @@ export const ReadOnlyFunctionForm = ({
           {result !== null && result !== undefined && (
             <div className="bg-secondary rounded-3xl text-sm px-4 py-1.5 break-words">
               <p className="font-bold m-0 mb-1">Result:</p>
-              <pre className="whitespace-pre-wrap break-words">{displayTxResult(result)}</pre>
+              <pre className="whitespace-pre-wrap break-words">
+                {/* TODO: move these links into a separate component and add logic to show the results as 'metadata' and 'img URL' using imgHash above */}
+                {isBrave ? (
+                  <Link
+                    className="link link-neutral"
+                    // href={txUrl.href}
+                    href={displayTxResult(result).toString()}
+                    passHref
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {displayTxResult(result).toString()}
+                    {/* {txUrl.href} */}
+                  </Link>
+                ) : (
+                  <Link
+                    className="link link-neutral"
+                    href={convertIpfsUrl(displayTxResult(result).toString())}
+                    // href={convertedTxUrl.href}
+                    passHref
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {convertIpfsUrl(displayTxResult(result).toString())}
+                    {/* {convertedTxUrl.href} */}
+                  </Link>
+                )}
+              </pre>
             </div>
           )}
         </div>
