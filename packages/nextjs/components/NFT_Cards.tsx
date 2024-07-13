@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import contractABI from "../utils/contract_ABI.json";
 import forgeContractABI from "../utils/forge_contract_ABI.json";
-import { JsonRpcProvider, ethers } from "ethers";
-import { useAccount, usePrepareContractWrite, useReadContract, useWriteContract } from "wagmi";
-import { metadata } from "~~/app/layout";
+import { ethers } from "ethers";
+import { useAccount, useWriteContract } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
-import { AddressProps } from "~~/components/scaffold-eth/Address";
+// import { AddressProps } from "~~/components/scaffold-eth/Address";
 import { useTransactor } from "~~/hooks/scaffold-eth";
 
 // import { writeContract } from "@wagmi/core";
@@ -36,9 +35,9 @@ const forgingRequirements: { [key: number]: number[] } = {
 export function NFT_Cards() {
   const [balances, setBalances] = useState<number[]>([]);
   const { address: connectedAddress } = useAccount();
-  const [selectedTokenId, setSelectedTokenId] = useState<number | null>(0);
+  // const [selectedTokenId, setSelectedTokenId] = useState<number | null>(0);
 
-  const fetchBalances = async () => {
+  const fetchBalances = useCallback(async () => {
     if (!connectedAddress) return;
 
     try {
@@ -49,11 +48,11 @@ export function NFT_Cards() {
     } catch (error: any) {
       console.error("Error fetching contract data:", error.message);
     }
-  };
+  }, [connectedAddress]);
 
   useEffect(() => {
     fetchBalances();
-  }, [connectedAddress]);
+  }, [connectedAddress, fetchBalances]);
 
   const checkApproval = async () => {
     if (!dwContract || !connectedAddress) return;
