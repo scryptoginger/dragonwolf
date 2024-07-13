@@ -6,6 +6,7 @@ export type ScaffoldConfig = {
   alchemyApiKey: string;
   walletConnectProjectId: string;
   onlyLocalBurnerWallet: boolean;
+  walletAutoConnect: boolean;
 };
 
 const scaffoldConfig = {
@@ -15,7 +16,7 @@ const scaffoldConfig = {
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect if you only target the local network (default is 4000)
-  pollingInterval: 30000,
+  pollingInterval: 4000,
 
   // This is ours Alchemy's default API key.
   // You can get your own at https://dashboard.alchemyapi.io
@@ -31,6 +32,8 @@ const scaffoldConfig = {
 
   // Only show the Burner Wallet when running on hardhat network
   onlyLocalBurnerWallet: true,
+
+  walletAutoConnect: true,
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;

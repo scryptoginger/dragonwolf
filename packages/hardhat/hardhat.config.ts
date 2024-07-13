@@ -14,6 +14,8 @@ import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 
 const privateKey = process.env.PRIVATE_KEY || "";
+const alchemyApiKey = process.env.ALCHEMY_API_KEY || "";
+const polygonScanApiKey = process.env.POLYGONSCAN_API_KEY || "";
 
 const config: HardhatUserConfig = {
   // module.exports = {
@@ -44,6 +46,8 @@ const config: HardhatUserConfig = {
       url: `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       // url: `https://rpc-amoy.polygon.technology/`,
       accounts: [privateKey as string],
+      // accounts: [alchemyApiKey as string],
+      // accounts: [polygonScanApiKey as string],
       gasPrice: "auto",
     },
     hardhat: {
