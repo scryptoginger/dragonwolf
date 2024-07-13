@@ -4,7 +4,6 @@ dotenv.config();
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-verify";
 import "@nomicfoundation/hardhat-ethers";
-// import "@nomicfoundation/hardhat-ignition-ethers";
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
@@ -14,7 +13,7 @@ import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 
 const privateKey = process.env.PRIVATE_KEY || "";
-const alchemyApiKey = process.env.ALCHEMY_API_KEY || "";
+const alchemyApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF"; //default, publicly known key from Scaffold-eth
 const polygonScanApiKey = process.env.POLYGONSCAN_API_KEY || "";
 
 const config: HardhatUserConfig = {
@@ -45,8 +44,9 @@ const config: HardhatUserConfig = {
     polygonAmoy: {
       url: `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       // url: `https://rpc-amoy.polygon.technology/`,
-      accounts: [privateKey as string],
-      // accounts: [alchemyApiKey as string],
+      accounts: [privateKey],
+      // accounts: [${process.env.PRIVATE_KEY}],
+      // accounts: [alchemyApiKey], //account: [${process.env.privateKey}]
       // accounts: [polygonScanApiKey as string],
       gasPrice: "auto",
     },
